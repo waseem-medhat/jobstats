@@ -4,9 +4,18 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	godotenv.Load()
+	_, err := initDB(os.Getenv("DB_URL"), true)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	routerV1 := http.NewServeMux()
 	routerV1.HandleFunc("/ready", handleWelcome)
 	routerV1.HandleFunc("/error", handleError)
