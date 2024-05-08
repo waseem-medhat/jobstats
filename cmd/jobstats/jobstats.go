@@ -11,7 +11,7 @@ import (
 
 func main() {
 	godotenv.Load()
-	_, err := initDB(os.Getenv("DB_URL"), true)
+	_, err := initDB(os.Getenv("DB_URL"), os.Getenv("DB_LOCAL") == "true")
 	if err != nil {
 		log.Fatal(err)
 	}
